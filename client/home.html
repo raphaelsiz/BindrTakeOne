@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bindr - a Trans Dating Site</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Home</h1>
+      <a href="profile.html">Edit Profile</a>
+    </div>
+    <div id="people">
+    </div>
+    <script src="all"></script>
+    <script>
+      getData();
+      async function getData(){
+        const response = await fetch('/api');
+        const data = await response.json();
+        for (item of data){
+          const root = document.createElement('div');
+          const name = document.createElement('h3');
+          const bio = document.createElement('p');
+          name.textContent = `${item.firstName}`;
+          if (item.bio){
+            bio.textContent = `${item.bio}`;
+          } else {
+            bio.textContent = "This user has no bio."
+          }
+          root.append(name,bio);
+          document.body.append(root);
+        }
+      }
+    </script>
+  </body>
+</html>
